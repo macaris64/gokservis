@@ -14,3 +14,12 @@ export interface SimControls {
   onSpeed: (s: number) => void;
   onToggleCinematic: () => void;
 }
+
+export interface GezginStats {
+  distance: number;
+  speed: number;
+  docked: boolean;
+  yaw: number;
+  pitch: number;
+  roll: number;
+}

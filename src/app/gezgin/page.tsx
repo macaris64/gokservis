@@ -1,8 +1,41 @@
 "use client";
 
+import { useState, useCallback } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Crosshair, Cpu, Eye, RotateCcw, CheckCircle } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
+import GezginSimUI from "@/components/sim/GezginSimUI";
+import type { GezginStats } from "@/components/sim/types";
+
+const GezginSim = dynamic(() => import("@/components/sim/GezginSim"), {
+  ssr: false,
+  loading: () => (
+    <div
+      style={{
+        width: "100%", height: "100%",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        background: "#0A0A0B", flexDirection: "column", gap: 14,
+      }}
+    >
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        style={{ fontSize: "2rem" }}
+      >
+        🛰️
+      </motion.div>
+      <span style={{
+        fontFamily: "var(--font-heading)", fontSize: "0.68rem",
+        letterSpacing: "0.14em", color: "var(--orange)", textTransform: "uppercase",
+      }}>
+        Simülatör Yükleniyor…
+      </span>
+    </div>
+  ),
+});
+
+const DEFAULT_STATS: GezginStats = { distance: 0, speed: 0, docked: false, yaw: 0, pitch: 0, roll: 0 };
 
 const specs = [
   { f: "Gözlem Sistemi",     d: "3D LIDAR + AI Destekli Optik",  a: "Gece/Gündüz tam otonom yanaşma" },
@@ -41,6 +74,14 @@ const opLoop = [
 ];
 
 export default function GezginPage() {
+  const [stats,       setStats]       = useState<GezginStats>(DEFAULT_STATS);
+  const [docked,      setDocked]      = useState(false);
+  const [resetSignal, setResetSignal] = useState(0);
+
+  const handleStats  = useCallback((s: GezginStats) => setStats(s), []);
+  const handleDocked = useCallback((v: boolean) => { setDocked(v); if (!v) setStats(DEFAULT_STATS); }, []);
+  const handleReset  = useCallback(() => { setResetSignal((n) => n + 1); setDocked(false); setStats(DEFAULT_STATS); }, []);
+
   return (
     <div className="page-wrapper">
 
@@ -190,6 +231,55 @@ export default function GezginPage() {
               </div>
             </AnimatedSection>
           </div>
+        </div>
+      </section>
+
+      {/* ── INTERACTIVE 6-DOF SIMULATOR ── */}
+      <section id="simulator" className="section">
+        <div className="container">
+          <AnimatedSection className="section-header section-header--center">
+            <span className="label c-orange">İnteraktif 6-DOF Simülatör</span>
+            <h2 className="heading-xl">GEZGİN&apos;i Sen Uçur</h2>
+            <p className="body-lg">
+              Klavye ile tam 6-DOF kontrol. KUTAY Orbital Hub&apos;ına yaklaş, hizala ve kenetle.
+            </p>
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: 620,
+                borderRadius: "var(--radius-xl)",
+                overflow: "hidden",
+                border: "1px solid rgba(255,69,0,0.18)",
+                boxShadow: "0 0 60px rgba(255,69,0,0.07), 0 24px 80px rgba(0,0,0,0.7)",
+              }}
+            >
+              <GezginSim
+                onStats={handleStats}
+                onDocked={handleDocked}
+                resetSignal={resetSignal}
+              />
+              <GezginSimUI
+                {...stats}
+                docked={docked}
+                onReset={handleReset}
+              />
+            </div>
+
+            <p style={{
+              textAlign: "center",
+              fontSize: "0.7rem",
+              color: "var(--text-3)",
+              letterSpacing: "0.07em",
+              marginTop: "var(--space-md)",
+              fontFamily: "var(--font-heading)",
+            }}>
+              WASD: İntikal &nbsp;·&nbsp; Ok Tuşları: Yaw/Pitch &nbsp;·&nbsp; Z/X: Roll &nbsp;·&nbsp; Q/E: Yukarı/Aşağı &nbsp;·&nbsp; R: Sıfırla
+            </p>
+          </AnimatedSection>
         </div>
       </section>
 
