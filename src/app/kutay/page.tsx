@@ -303,7 +303,7 @@ export default function KutayPage() {
           </AnimatedSection>
           <div className="grid-3">
             {[
-              { icon: "🚀", color: "var(--orange)", title: "Düşük Maliyetli Tankerler", desc: "Roketsan tarafından Somali Uzay Limanı&apos;ndan fırlatılan, yük taşıma odaklı tek yönlü araçlar." },
+              { icon: "🚀", color: "var(--orange)", title: "Düşük Maliyetli Tankerler", desc: "Roketsan tarafından Somali Uzay Limanı'ndan fırlatılan, yük taşıma odaklı tek yönlü araçlar." },
               { icon: "🛸", color: "var(--cyan)",   title: "Otonom Yakınsama",          desc: "Tankerler KUTAY'ın rehberlik sistemlerini kullanarak otonom kenetlenir. İnsan müdahalesi gerekmez." },
               { icon: "♻️", color: "var(--green)",  title: "Döngüsel Ekonomi",          desc: "Boşalan tanklar uzay çöpü olmaz; atmosfere itilir veya KUTAY'a modüler yapı elemanı olarak eklenir." },
             ].map((item, i) => (
