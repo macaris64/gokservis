@@ -24,8 +24,4 @@
         { "key": "Cache-Control", "value": "no-store, max-age=0" }
       ]
     }
-  ],
-  "env": {
-    "CONTACT_WEBHOOK_URL": "@contact-webhook-url"
-  }
-}
+  ]}
