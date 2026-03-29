@@ -7,11 +7,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Satellite } from "lucide-react";
 
 const links = [
-  { href: "/",         label: "Anasayfa" },
-  { href: "/kutay",    label: "KUTAY" },
-  { href: "/gezgin",   label: "GEZGİN" },
-  { href: "/vizyon",   label: "Vizyon & Ekonomi" },
-  { href: "/iletisim", label: "İletişim" },
+  { href: "/",           label: "Anasayfa" },
+  { href: "/kutay",      label: "KUTAY" },
+  { href: "/gezgin",     label: "GEZGİN" },
+  { href: "/simulasyon", label: "Görev Simülatörü" },
+  { href: "/vizyon",     label: "Vizyon & Ekonomi" },
+  { href: "/iletisim",   label: "İletişim" },
 ];
 
 export default function Navbar() {
