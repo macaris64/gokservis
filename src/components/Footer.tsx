@@ -91,6 +91,52 @@ export default function Footer() {
           ))}
         </div>
 
+        {/* TUA Hackathon Disclaimer */}
+        <div style={{
+          borderTop: "1px solid rgba(255,255,255,0.07)",
+          paddingTop: "var(--space-lg)",
+          marginBottom: "var(--space-lg)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--space-sm)",
+          alignItems: "center",
+          textAlign: "center",
+        }}>
+          <div style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 10,
+            background: "rgba(139,92,246,0.08)",
+            border: "1px solid rgba(139,92,246,0.25)",
+            borderRadius: 8,
+            padding: "6px 16px",
+            marginBottom: 4,
+          }}>
+            <span style={{ fontSize: "1.1rem" }}>🚀</span>
+            <span style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--purple)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+              TUA Astro Hackathon Projesi
+            </span>
+            <span style={{
+              background: "rgba(139,92,246,0.18)",
+              border: "1px solid rgba(139,92,246,0.35)",
+              borderRadius: 4,
+              padding: "1px 7px",
+              fontSize: "0.65rem",
+              fontWeight: 800,
+              color: "var(--purple)",
+              letterSpacing: "0.12em",
+            }}>TUA</span>
+          </div>
+          <p style={{ fontSize: "0.7rem", color: "var(--text-3)", maxWidth: 600, lineHeight: 1.6 }}>
+            <strong style={{ color: "var(--text-2)" }}>Yasal Uyarı:</strong>{" "}
+            Bu web sitesi, Türkiye Uzay Ajansı (TUA) Astro Hackathon kapsamında hazırlanmış
+            bir hobi/kavramsal tasarım projesidir. GökServis gerçek bir şirket değildir;
+            sunulan tüm veriler, projeksiyonlar ve görseller yalnızca yaratıcı konsept
+            amacıyla üretilmiştir. Herhangi bir yatırım, sözleşme veya ticari taahhüt
+            teşkil etmez.
+          </p>
+        </div>
+
         <div className="footer__bottom">
           <span className="footer__copy">
             © 2026 GökServis Teknoloji. Tüm hakları saklıdır.

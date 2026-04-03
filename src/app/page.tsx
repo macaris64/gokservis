@@ -1,9 +1,9 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { Fuel, Wrench, Zap, Truck, ChevronRight, ArrowRight, Shield, Globe, TrendingUp } from "lucide-react";
+import { Fuel, Wrench, Zap, Truck, ChevronRight, ChevronLeft, ArrowRight, Shield, Globe, TrendingUp } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 
 /* ── data ── */
@@ -67,6 +67,7 @@ const advantages = [
 
 /* ── component ── */
 export default function HomePage() {
+  const [bannerOpen, setBannerOpen] = useState(true);
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroY   = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
@@ -74,6 +75,94 @@ export default function HomePage() {
 
   return (
     <div className="page-wrapper">
+
+      {/* ── TUA HACKATHON FLOATING SIDE BANNER ── */}
+      <div style={{
+        position: "fixed",
+        right: 0,
+        top: "50%",
+        transform: "translateY(-50%)",
+        zIndex: 50,
+        display: "flex",
+        alignItems: "center",
+      }}>
+        {/* Toggle tab */}
+        <button
+          onClick={() => setBannerOpen(o => !o)}
+          aria-label={bannerOpen ? "Kapat" : "TUA Hackathon"}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 4,
+            background: "rgba(139,92,246,0.18)",
+            border: "1px solid rgba(139,92,246,0.40)",
+            borderRight: "none",
+            borderRadius: "8px 0 0 8px",
+            padding: "10px 5px",
+            cursor: "pointer",
+            color: "var(--purple)",
+            backdropFilter: "blur(8px)",
+            writingMode: "vertical-rl",
+            fontSize: "0.58rem",
+            fontWeight: 800,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {bannerOpen ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
+          🚀
+        </button>
+
+        {/* Sliding panel */}
+        <motion.div
+          initial={false}
+          animate={{ width: bannerOpen ? 180 : 0, opacity: bannerOpen ? 1 : 0 }}
+          transition={{ type: "spring", stiffness: 320, damping: 30 }}
+          style={{ overflow: "hidden" }}
+        >
+          <div style={{
+            width: 180,
+            background: "linear-gradient(160deg, rgba(20,10,40,0.97) 0%, rgba(10,5,25,0.98) 100%)",
+            border: "1px solid rgba(139,92,246,0.30)",
+            borderRight: "none",
+            borderRadius: "8px 0 0 8px",
+            padding: "14px 12px",
+            backdropFilter: "blur(12px)",
+            boxShadow: "-4px 0 24px rgba(139,92,246,0.12)",
+          }}>
+            <span style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 5,
+              background: "rgba(139,92,246,0.18)",
+              border: "1px solid rgba(139,92,246,0.40)",
+              borderRadius: 5,
+              padding: "2px 8px",
+              fontSize: "0.60rem",
+              fontWeight: 800,
+              color: "var(--purple)",
+              letterSpacing: "0.09em",
+              textTransform: "uppercase",
+              marginBottom: 8,
+              whiteSpace: "nowrap",
+            }}>
+              🚀 TUA Astro Hackathon
+            </span>
+            <p style={{
+              fontSize: "0.62rem",
+              color: "var(--text-3)",
+              margin: 0,
+              lineHeight: 1.55,
+            }}>
+              <strong style={{ color: "var(--text-2)", display: "block", marginBottom: 3 }}>Yasal Uyarı</strong>
+              Bu sayfa yalnızca hackathon konsept tasarımı amacıyla üretilmiştir. GökServis gerçek bir şirket değildir.
+            </p>
+          </div>
+        </motion.div>
+      </div>
 
       {/* ── HERO ── */}
       <section ref={heroRef} className="hero">
